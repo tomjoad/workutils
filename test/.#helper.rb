@@ -1,1 +1,0 @@
-lukasz@lukasz-ThinkPad-T61.3096:1333688702
