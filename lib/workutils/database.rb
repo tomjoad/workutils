@@ -26,7 +26,7 @@ module WorkUtils
   end
 
   def seed_database
-    full_filenames = expand_filenames(working_directory_filenames(PROJECTS_PATH), (PROJECT_PATH))
+    full_filenames = full_path_filenames(working_directory_filenames(PROJECTS_PATH), PROJECTS_PATH)
     full_filenames.each do |file|
       Models::File.create(:name => file, :number_of_lines => count_number_of_lines(file))
     end
@@ -42,9 +42,18 @@ module WorkUtils
     end
   end
 
-  def expand_filenames(filenames, projects_path)
+  def full_path_filenames(filenames, projects_path)
     filenames.collect do |item|
       item = File.expand_path(item, projects_path)
+    end
+  end
+
+  # cleaning database by removing deleted files from it
+
+  def clean_up_database
+    new_files = full_path_filenames(working_directory_filenames(PROJECTS_PATH), PROJECTS_PATH)
+    Models::File.all.each do |file|
+      file.destroy unless new_files.include? file.name
     end
   end
 

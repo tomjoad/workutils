@@ -10,8 +10,8 @@ require "workutils/models.rb"
 # execute
 
 WorkUtils.connect()
-WorkUtils.generate_schema()
-WorkUtils.seed_database()
+# WorkUtils.generate_schema()
+# WorkUtils.seed_database()
 # WorkUtils::Models::File.create(:name => "lukasz")
 # should be in smth like "install" rake file
 # WorkUtils.generate_schema()
