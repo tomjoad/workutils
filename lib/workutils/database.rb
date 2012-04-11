@@ -22,9 +22,6 @@ module WorkUtils
     end
   end
 
-  def compare
-  end
-
   def seed_database
     full_filenames = full_path_filenames(working_directory_filenames(PROJECTS_PATH), PROJECTS_PATH)
     full_filenames.each do |file|
@@ -55,6 +52,35 @@ module WorkUtils
     Models::File.all.each do |file|
       file.destroy unless new_files.include? file.name
     end
+  end
+
+  def compare
+    clean_up_database
+    # new_files = full_path_filenames(working_directory_filenames(PROJECTS_PATH), PROJECTS_PATH)
+    added_lines = 0
+    deleted_lines = 0
+    Models::File.all.each do |file|
+      temp = count_number_of_lines(file.name) - file.number_of_lines
+      if temp < 0
+        deleted_lines += temp.abs
+      elsif temp > 0
+        added_lines += temp
+      end
+      file.number_of_lines = count_number_of_lines(file.name)
+      file.save
+    end
+
+    p deleted_lines
+    p added_lines
+    # new_files.each do |file|
+    #   temp = count_number_of_lines(file) - Models::File.find_by_name(file).number_of_lines
+    #   if temp < 0
+    #     added_lines += temp
+    #     Models::File.find_by_name(file).
+    #   elsif temp > 0
+    #     deleted_lines += temp.abs
+    # end
+    # add_new_files_to_database
   end
 
 end

@@ -1,3 +1,4 @@
 todolist:
 * user should be able to specify database pathname
 * install on rakes (db, pathnames, seeds etc...)
+* change "File" model name into something more convenient
