@@ -11,6 +11,7 @@ require "workutils/models.rb"
 
 WorkUtils.connect()
 WorkUtils.compare()
+
 # WorkUtils.generate_schema()
 # WorkUtils.seed_database()
 # WorkUtils::Models::File.create(:name => "lukasz")
